@@ -80,6 +80,21 @@ var ImgFigure = React.createClass({
     );
   }
 });
+
+//控制组件
+
+
+var ControllerUnits = React.createClass({
+  handleClick: function(e){
+    e.preventDefault();
+    e.stopPropagation();
+  },
+  render:function(){
+    return(
+      <span className="controller-unit" onClick={this.handleClick}></span>
+    );
+  }
+});
 var GalleryByReactApp = React.createClass({
   Constant:{
     centerPos:{
@@ -269,6 +284,8 @@ var GalleryByReactApp = React.createClass({
     //console.log(this.state.imgsArrangeArr[index]);
     imgFigures.push(<ImgFigure data = {value} key = {index} ref={'imgFigure' + index}
     arrange={this.state.imgsArrangeArr[index]} inverse={this.inverse(index)} center={this.center(index)}/>);//value为照片对象，数组储存的都是react组件，组件的具体内容由ImgFigure来配置
+
+    controllerUnits.push(<ControllerUnits key={index}/>)
   }.bind(this));
     return (
       <section className = "stage" ref="stage">
