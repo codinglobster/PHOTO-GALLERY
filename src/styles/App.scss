@@ -4,6 +4,8 @@ html,body{
   height: 100%;
 }
 
+
+
 .content{
   width:100%;
 
@@ -23,6 +25,58 @@ html,body{
   height: 100%;
   overflow: hidden;
   background-color: #ddd;
+  perspective: 1800px; //景深选项，越小立体感越强
+  @at-root{//虽然是包含关系，但是可以通过at-root来将生成的css保持同级关系
+    .img-figure{
+      position: absolute;
+      width:320px;
+      height: 360px;
+      margin: 0;
+      padding: 40px;
+      background-color: #fff;
+      box-sizing: border-box;//怪异模式
+
+      transform-origin: 0 50% 0;//x,y,z
+      transform-style: preserve-3d;
+      transition: transform .6s ease-in-out,left .6s ease-in-out,top .6s ease-in-out;
+      cursor: pointer;
+      &.is-inverse{
+        transform: translate(320px) rotateY(180deg);
+      }
+
+      img{
+        width:240px;
+        height:240px;
+        //margin: 0 20px 0 20px;
+      }
+    }
+    figcaption{
+      text-align: center;
+      .img-title{
+        margin:20px 0 0 0;
+        color:#a7a0a2;
+        font-size: 16px;
+      }
+      .img-back{
+        position: absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height: 100%;
+        padding:50px 40px;
+        color: #a7a0a2;
+        font: 22px;
+        line-height: 1.25;
+        text-align: center;
+        background-color: #fff;
+        box-sizing: border-box;
+
+        transform: rotateY(180deg) translateZ(1px);
+
+      }
+    }
+  }
+
 }
 /*image -- end */
 /*controller -- start */
