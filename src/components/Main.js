@@ -4,7 +4,7 @@ require('styles/App.scss');
 let imageDatas = require('../data/imageDatas.json');
 
 import React from 'react';
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom';
 
 //利用自执行函数，将图片信息转成图片URL路径信息
 imageDatas = (function genImageURL(imageDatasArr){
@@ -82,16 +82,29 @@ var ImgFigure = React.createClass({
 });
 
 //控制组件
-
-
 var ControllerUnits = React.createClass({
   handleClick: function(e){
+    //如果点击的是房前选中的按钮，翻转，否则居中对应的图片
+    if(this.props.arrange.isCenter){
+      this.props.inverse();
+    }else{
+      this.props.center();
+    }
     e.preventDefault();
     e.stopPropagation();
   },
   render:function(){
+    var ControllerUnitClassName = 'controller-unit';
+    //如果对应的是居中的图片，显示控制按钮的居中态
+    if(this.props.arrange.isCenter){
+      ControllerUnitClassName += ' is-center';
+      //如果同时对应的是翻转图片，显示控制按钮翻转态
+      if(this.props.arrange.isInverse){
+        ControllerUnitClassName += ' is-inverse';
+      }
+    }
     return(
-      <span className="controller-unit" onClick={this.handleClick}></span>
+      <span className={ControllerUnitClassName} onClick={this.handleClick}></span>
     );
   }
 });
@@ -195,6 +208,7 @@ var GalleryByReactApp = React.createClass({
             isCenter:false
           }
         }
+        debugger;
         //如果上部取值了，则将上部元素插回去，因为index不会自动消失，所以要手动插回去
         if(imgsArrangeTopArr && imgsArrangeTopArr[0]){
           imgsArrangeArr.splice(topImgSpliceIndex,0,imgsArrangeTopArr[0]);
@@ -285,7 +299,7 @@ var GalleryByReactApp = React.createClass({
     imgFigures.push(<ImgFigure data = {value} key = {index} ref={'imgFigure' + index}
     arrange={this.state.imgsArrangeArr[index]} inverse={this.inverse(index)} center={this.center(index)}/>);//value为照片对象，数组储存的都是react组件，组件的具体内容由ImgFigure来配置
 
-    controllerUnits.push(<ControllerUnits key={index}/>)
+    controllerUnits.push(<ControllerUnits key={index} arrange={this.state.imgsArrangeArr[index]} inverse={this.inverse(index)} center={this.center(index)}/>)
   }.bind(this));
     return (
       <section className = "stage" ref="stage">
