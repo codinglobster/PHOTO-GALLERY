@@ -1,5 +1,5 @@
 require('normalize.css/normalize.css');
-require('styles/App.scss');
+require('../styles/App.scss');
 //获取图片相关的数据
 let imageDatas = require('../data/imageDatas.json');
 
@@ -208,7 +208,7 @@ var GalleryByReactApp = React.createClass({
             isCenter:false
           }
         }
-        debugger;
+        //debugger;
         //如果上部取值了，则将上部元素插回去，因为index不会自动消失，所以要手动插回去
         if(imgsArrangeTopArr && imgsArrangeTopArr[0]){
           imgsArrangeArr.splice(topImgSpliceIndex,0,imgsArrangeTopArr[0]);
@@ -266,10 +266,10 @@ var GalleryByReactApp = React.createClass({
           top:halfStageH - halfImgH
         }
         //计算左侧，右侧区域图片排布位置的取值范围
-        this.Constant.hPosRange.leftSecX[0] = -halfImgW;
+        this.Constant.hPosRange.leftSecX[0] = -halfImgW;//缩进一半
         this.Constant.hPosRange.leftSecX[1] = halfStageW - halfImgW * 3;
-        this.Constant.hPosRange.rightSecX[0] = halfStageW + halfImgW;
-        this.Constant.hPosRange.rightSecX[1] = stageW - halfImgW;
+        this.Constant.hPosRange.rightSecX[0] = halfStageW + halfImgW;//中部多一半
+        this.Constant.hPosRange.rightSecX[1] = stageW - halfImgW;//右侧少一半
         this.Constant.hPosRange.y[0] = -halfImgH;
         this.Constant.hPosRange.y[1] = stageH - halfImgH;
         //计算上侧区域图片排布位置的取值范围
